@@ -10,11 +10,6 @@ export default function SignupPage() {
   const { signup, isAuthenticated, isHydrated } = useAuth()
   const { showToast } = useToast()
   const navigate = useNavigate()
-
-  if (isHydrated && isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
-  }
-
   const [form, setForm] = useState<SignupRequest>({
     username: '',
     full_name: '',
@@ -26,6 +21,10 @@ export default function SignupPage() {
   const [errors, setErrors] = useState<Partial<Record<keyof SignupRequest | 'confirmPin', string>>>(
     {},
   )
+
+  if (isHydrated && isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()

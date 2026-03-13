@@ -9,15 +9,14 @@ export default function LoginPage() {
   const { login, isAuthenticated, isHydrated } = useAuth()
   const { showToast } = useToast()
   const navigate = useNavigate()
-
-  if (isHydrated && isAuthenticated) {
-    return <Navigate to="/dashboard" replace />
-  }
-
   const [username, setUsername] = useState('')
   const [pin, setPin] = useState('')
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState<{ username?: string; pin?: string }>({})
+
+  if (isHydrated && isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
