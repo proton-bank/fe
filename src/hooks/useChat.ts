@@ -1,11 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import type {
-  ChatMessage,
-  ChatStatus,
-  SSEEvent,
-  UIMessage,
-  UIMessageType,
-} from '../types/chat'
+import type { ChatMessage, ChatStatus, SSEEvent, UIMessage } from '../types/chat'
 import { getConversationMessages } from '../api/chat'
 import { useSSE } from './useSSE'
 
@@ -176,7 +170,8 @@ export function useChat(): UseChatReturn {
       )
       .map((m) => ({
         id: m.id,
-        type: m.role as UIMessageType,
+        // map ChatMessage role -> UI content message type
+        type: m.role === 'user' ? 'user' : 'assistant',
         content: m.content ?? '',
         timestamp: new Date(m.created_at),
       }))
